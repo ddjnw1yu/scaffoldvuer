@@ -4,6 +4,7 @@ const THREE = Zinc.THREE;
 import { BaseModule } from './BaseModule';
 import { EVENT_TYPE } from "./EventNotifier";
 import GraphicsHighlight from "./GraphicsHighlight";
+import { objectsToZincObjects } from "./Utilities";
 
 /**
  * Create a {@link Zinc.Renderer} on the dom element with corresponding elementID.
@@ -112,8 +113,8 @@ RendererModule.prototype.getAnnotationsFromObjects = function(objects) {
 
 RendererModule.prototype.setHighlightedByObjects = function(
   objects, coords, extraData, propagateChanges) {
+  const zincObjects = objectsToZincObjects(objects);
   const changed = this.graphicsHighlight.setHighlighted(objects);
-  const zincObjects = this.objectsToZincObjects(objects);
   if (propagateChanges) {
     let eventType = EVENT_TYPE.MOVE;
     if (changed)
@@ -162,24 +163,6 @@ RendererModule.prototype.setupLiveCoordinates = function(zincObjects) {
   }
 }
 
-RendererModule.prototype.objectsToZincObjects = function(objects) {
-  const zincObjects = [];
-  for (let i = 0; i < objects.length; i++) {
-    let zincObject = objects[i].userData;
-    if (zincObject) {
-      if (zincObject.isGlyph || zincObject.isGlyphset) {
-        let glyphset = zincObject;
-        if (zincObject.isGlyph)
-          glyphset = zincObject.getGlyphset();
-        zincObjects.push(glyphset);
-      } else {
-        zincObjects.push(zincObject);
-      }
-    }
-  }
-  return zincObjects;
-}
-
 
 RendererModule.prototype.setSelectedByObjects = function(
   objects, coords, extraData, propagateChanges) {
@@ -190,7 +173,7 @@ RendererModule.prototype.setSelectedByObjects = function(
     changed = true;
   }
   if (changed || this.ignorePreviousSelected) {
-    const zincObjects = this.objectsToZincObjects(objects);
+    const zincObjects = objectsToZincObjects(objects);
     if (this.selectObjectOnPick) {
       this.setupLiveCoordinates(zincObjects);
     }

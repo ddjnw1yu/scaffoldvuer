@@ -409,3 +409,20 @@ export const annotationFeaturesToPrimitives = (scene, features)  => {
   }
 }
 
+export const objectsToZincObjects = function(objects) {
+  const zincObjects = [];
+  for (let i = 0; i < objects.length; i++) {
+    let zincObject = objects[i].userData;
+    if (zincObject) {
+      if (zincObject.isGlyph || zincObject.isGlyphset) {
+        let glyphset = zincObject;
+        if (zincObject.isGlyph)
+          glyphset = zincObject.getGlyphset();
+        zincObjects.push(glyphset);
+      } else {
+        zincObjects.push(zincObject);
+      }
+    }
+  }
+  return zincObjects;
+}

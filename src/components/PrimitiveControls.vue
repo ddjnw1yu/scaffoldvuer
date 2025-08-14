@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="material || isTextureSlides"
+    v-show="hasValidPrimitive"
     class="primitive-controls"
     :class="{ open: drawerOpen, close: !drawerOpen }"
   >
@@ -85,6 +85,10 @@ export default {
     createData: {
       type: Object,
     },
+    viewingMode: {
+      type: String,
+      default: "Exploration",
+    }
   },
   data: function() {
     return {
@@ -98,6 +102,14 @@ export default {
       isEditable: false,
       displayString: "100%"
     };
+  },
+  computed: {
+    hasValidPrimitive: function () {
+      if (this.viewingMode === 'Exploration' || this.viewingMode === 'Annotation') {
+        return (this.material !== undefined || this.isTextureSlides === true);
+      }
+      return false;
+    }
   },
   methods: {
     formatTooltip: function(val) {

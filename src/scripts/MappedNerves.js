@@ -822,7 +822,6 @@ const getNerveMaps = () => {
       });
     }
   });
-  console.log(curatedMap)
   return curatedMap;
 }
 

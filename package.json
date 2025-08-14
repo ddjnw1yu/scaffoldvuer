@@ -1,6 +1,6 @@
 {
   "name": "@abi-software/scaffoldvuer",
-  "version": "1.11.0-beta.1",
+  "version": "1.11.0-beta.6",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -41,7 +41,7 @@
     "*.js"
   ],
   "dependencies": {
-    "@abi-software/map-utilities": "^1.6.0",
+    "@abi-software/map-utilities": "1.6.1-beta.6",
     "@abi-software/sparc-annotation": "^0.3.2",
     "@abi-software/svg-sprite": "^1.0.1",
     "@element-plus/icons-vue": "^2.3.1",
@@ -54,7 +54,7 @@
     "vue": "^3.4.21",
     "vue-router": "^4.2.5",
     "vue3-component-svg-sprite": "^0.0.1",
-    "zincjs": "^1.14.3"
+    "zincjs": "^1.15.0-beta.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.6.2",
